@@ -6,8 +6,13 @@ import re
 import os
 import csv
 from groq import Groq
+from dotenv import load_dotenv
 
-groq_client = Groq(api_key="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")
+load_dotenv()
+
+groq_client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
