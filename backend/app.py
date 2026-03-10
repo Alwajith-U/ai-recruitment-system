@@ -251,7 +251,7 @@ def rank_resumes():
 
             "skill_match": skill_match_percentage,
 
-            "resume_url": f"http://127.0.0.1:5000/resume/{resume['filename']}"
+            "resume_url": f"https://ai-recruitment-system-sano.onrender.com/resume/{resume['filename']}"
         })
 
     ranked_results = sorted(

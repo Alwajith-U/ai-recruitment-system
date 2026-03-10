@@ -14,7 +14,7 @@ function JobForm() {
         if (!title || !description) return;
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/upload-jd", {
+            const response = await fetch("https://ai-recruitment-system-sano.onrender.com/upload-jd", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

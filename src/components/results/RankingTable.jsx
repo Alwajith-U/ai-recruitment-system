@@ -30,7 +30,7 @@ function RankingTable({ data = [] }) {
                     </p>
                 </div>
                 <button
-                    onClick={() => window.open("http://127.0.0.1:5000/export-csv")}
+                    onClick={() => window.open("https://ai-recruitment-system-sano.onrender.com/export-csv")}
                     className="flex items-center gap-2 border border-gray-200 bg-white hover:bg-gray-50 hover:shadow-sm hover:-translate-y-0.5 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition-all duration-200"
                 >
                     <Download className="w-4 h-4 mb-[1px]" /> Export CSV
