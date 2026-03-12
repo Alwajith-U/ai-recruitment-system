@@ -48,7 +48,7 @@ function ResumeUploader() {
                 formData.append("resumes", file);
             });
 
-            const response = await fetch("http://localhost:5000/upload-resumes", {
+            const response = await fetch("https://ai-recruitment-system-sano.onrender.com/upload-resumes", {
                 method: "POST",
                 body: formData,
             });

@@ -25,7 +25,7 @@ function PipelineChart() {
 
     useEffect(() => {
 
-        fetch("http://localhost:5000/pipeline")
+        fetch("https://ai-recruitment-system-sano.onrender.com/pipeline")
             .then(res => res.json())
             .then(data => setPipeline(data));
 

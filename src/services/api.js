@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Mock service module preparing for backend integration
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://ai-recruitment-system-sano.onrender.com/api';
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
