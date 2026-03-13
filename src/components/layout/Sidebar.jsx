@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Briefcase, FileUp, Users } from 'lucide-react';
+import { LayoutDashboard, Briefcase, FileUp, Users, Clock } from 'lucide-react';
 import { X } from 'lucide-react';
 
 /* eslint-disable react/prop-types */
@@ -11,6 +11,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         { path: '/job', label: 'Job Description', icon: Briefcase },
         { path: '/upload', label: 'Resume Upload', icon: FileUp },
         { path: '/results', label: 'Candidate Rankings', icon: Users },
+        { path: '/history', label: 'Recruitment History', icon: Clock }
     ];
 
     return (

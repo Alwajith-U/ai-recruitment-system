@@ -37,7 +37,7 @@ nlp = spacy.load("en_core_web_sm")
 # -----------------------------
 mongo_uri = os.getenv("MONGO_URI")
 
-client = MongoClient(mongo_uri)
+client = MongoClient(mongo_uri, tls=True, tlsAllowInvalidCertificates=True)
 
 db = client["ai_recruitment"]
 rankings_collection = db["rankings"]
@@ -120,9 +120,12 @@ def clean_name(filename):
 
     name = name.replace("_", " ")
     name = name.replace("-", " ")
-    name = name.replace("resume", "")
-    name = name.replace("cv", "")
-    name = name.replace("profile", "")
+
+    # remove common words
+    remove_words = ["resume", "cv", "profile"]
+
+    for w in remove_words:
+        name = name.replace(w, "")
 
     name = name.strip()
 
@@ -231,9 +234,6 @@ def rank_resumes():
 
         resume_skills = resume.get("skills", [])
 
-        # -----------------------------
-        # Skill Match Percentage
-        # -----------------------------
         matched_skills = len(set(job_skills) & set(resume_skills))
 
         if len(job_skills) > 0:
@@ -243,19 +243,21 @@ def rank_resumes():
         else:
             skill_match_percentage = 0
 
-        filename = resume.get("filename", "Unknown")
-        clean_name = filename.replace(".pdf", "").replace("_", " ")
+        candidate_name = resume.get("name", clean_name(resume["filename"]))
 
         ranked_results.append({
-            "name": clean_name,
+
+            "name": candidate_name,
+
             "score": round(float(score) * 100, 2),
+
             "experience": resume.get("experience", "Fresher"),
 
             "skills": resume_skills,
 
             "skill_match": skill_match_percentage,
 
-            "resume_url": f"https://ai-recruitment-system-sano.onrender.com/resume/{resume['filename']}"
+            "resume_url": f"/resume/{resume['filename']}"
         })
 
     ranked_results = sorted(
@@ -278,7 +280,13 @@ def rank_resumes():
 # -----------------------------
 @app.route("/resume/<filename>")
 def serve_resume(filename):
-    return send_from_directory("uploads", filename)
+
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+
+    if not os.path.exists(filepath):
+        return jsonify({"error": "Resume not found"}), 404
+
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 # -----------------------------
 # Export CSV
@@ -482,6 +490,28 @@ Include sections:
     except Exception as e:
         print("Groq Error:", e)
         return jsonify({"error": "AI generation failed"}), 500
+
+# -----------------------------
+# Recruitment History
+# -----------------------------
+@app.route("/history")
+def recruitment_history():
+
+    history = []
+
+    records = rankings_collection.find().sort("_id", -1)
+
+    for r in records:
+
+        history.append({
+            "date": r["timestamp"].strftime("%Y-%m-%d %H:%M"),
+            "job_description": r["job_description"][:120],
+            "total_candidates": len(r["results"]),
+            "top_candidate": r["results"][0]["name"],
+            "top_score": r["results"][0]["score"]
+        })
+
+    return jsonify(history)
 
 # -----------------------------
 # Run Server
