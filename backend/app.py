@@ -7,6 +7,7 @@ import os
 import csv
 from groq import Groq
 from dotenv import load_dotenv
+from pymongo import MongoClient
 
 load_dotenv()
 
@@ -34,7 +35,10 @@ nlp = spacy.load("en_core_web_sm")
 # -----------------------------
 # MongoDB Connection
 # -----------------------------
-client = MongoClient("mongodb://localhost:27017/")
+mongo_uri = os.getenv("MONGO_URI")
+
+client = MongoClient(mongo_uri)
+
 db = client["ai_recruitment"]
 rankings_collection = db["rankings"]
 
