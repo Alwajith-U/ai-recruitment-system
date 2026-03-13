@@ -243,12 +243,12 @@ def rank_resumes():
         else:
             skill_match_percentage = 0
 
+        filename = resume.get("filename", "Unknown")
+        clean_name = filename.replace(".pdf", "").replace("_", " ")
+
         ranked_results.append({
-
-            "name": resume.get("name", "Unknown"),
-
+            "name": clean_name,
             "score": round(float(score) * 100, 2),
-
             "experience": resume.get("experience", "Fresher"),
 
             "skills": resume_skills,
@@ -277,8 +277,8 @@ def rank_resumes():
 # Resume Preview
 # -----------------------------
 @app.route("/resume/<filename>")
-def get_resume(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
+def serve_resume(filename):
+    return send_from_directory("uploads", filename)
 
 # -----------------------------
 # Export CSV
