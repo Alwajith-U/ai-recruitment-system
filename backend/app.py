@@ -116,18 +116,22 @@ def extract_experience(text):
 # -----------------------------
 def clean_name(filename):
 
-    name = filename.split(".")[0]
+    name = filename.lower()
 
-    name = name.replace("_", " ")
-    name = name.replace("-", " ")
+    # remove extension
+    name = name.replace(".pdf", "")
 
-    # remove common words
+    # replace separators
+    name = name.replace("_", " ").replace("-", " ")
+
+    # remove unwanted words
     remove_words = ["resume", "cv", "profile"]
 
-    for w in remove_words:
-        name = name.replace(w, "")
+    for word in remove_words:
+        name = name.replace(word, "")
 
-    name = name.strip()
+    # remove extra spaces
+    name = " ".join(name.split())
 
     return name.title()
 
@@ -266,6 +270,7 @@ def rank_resumes():
         reverse=True
     )
 
+    rankings_collection.delete_many({})
     rankings_collection.insert_one({
         "timestamp": datetime.utcnow(),
         "job_description": job_description_text,

@@ -7,6 +7,7 @@ function ResumeUploader() {
     const fileInputRef = useRef(null);
     const [files, setFiles] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -41,6 +42,8 @@ function ResumeUploader() {
     const handleProcess = async () => {
         if (files.length === 0) return;
 
+        setLoading(true); // ✅ START LOADING
+
         try {
             const formData = new FormData();
 
@@ -65,6 +68,8 @@ function ResumeUploader() {
             console.error(error);
             alert("Backend connection failed");
         }
+
+        setLoading(false); // ✅ STOP LOADING
     };
 
     return (
@@ -151,13 +156,22 @@ function ResumeUploader() {
                 </button>
                 <button
                     onClick={handleProcess}
-                    disabled={files.length === 0}
-                    className={`w-full sm:w-auto min-h-[40px] px-6 py-2.5 rounded-lg font-medium transition-all duration-200 shadow-sm hover:-translate-y-0.5 hover:shadow-md cursor-pointer flex justify-center items-center gap-2 ${files.length === 0
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none hover:shadow-none hover:translate-y-0'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    disabled={files.length === 0 || loading}
+                    className={`w-full sm:w-auto min-h-[40px] px-6 py-2.5 rounded-lg font-medium transition-all duration-200 shadow-sm flex justify-center items-center gap-2
+    ${loading
+                            ? 'bg-gray-400 text-white cursor-not-allowed'
+                            : files.length === 0
+                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                : 'bg-blue-600 text-white hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-md'
                         }`}
                 >
-                    Process Resumes With AI
+
+                    {loading && (
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    )}
+
+                    {loading ? "Processing..." : "Process Resumes With AI"}
+
                 </button>
             </div>
         </div>

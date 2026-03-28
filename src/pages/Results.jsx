@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import RankingTable from '../components/results/RankingTable';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import SkillChart from '../components/results/SkillChart';
 
 function Results() {
     const navigate = useNavigate();
@@ -95,8 +94,6 @@ function Results() {
                 </div>
             )}
 
-            {/* Skill Chart */}
-            <SkillChart data={rankingData} />
 
             {/* Ranking Table */}
             <RankingTable data={rankingData} />
