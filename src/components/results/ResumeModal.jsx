@@ -19,7 +19,7 @@ function ResumeModal({ candidate, onClose }) {
                 </h2>
 
                 <iframe
-                    src={candidate.resume_url}
+                    src={`https://ai-recruitment-system-sano.onrender.com${candidate.resume_url}`}
                     title="Resume"
                     className="w-full h-[90%]"
                 ></iframe>
