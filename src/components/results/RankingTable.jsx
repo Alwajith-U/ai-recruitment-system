@@ -21,102 +21,94 @@ function RankingTable({ data = [] }) {
     };
 
     return (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] overflow-hidden">
-            <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
-                <div>
-                    <h2 className="text-lg font-bold text-gray-900">AI Match Results</h2>
-                    <p className="text-sm text-gray-500 mt-1">
-                        Ranked candidates based on job description
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] overflow-hidden">
+            {/* Header */}
+            <div className="px-7 py-6 border-b border-gray-100 flex items-center justify-between bg-white relative overflow-hidden">
+                <div className="relative z-10">
+                    <h2 className="text-xl font-bold text-gray-900 tracking-tight">AI Match Results</h2>
+                    <p className="text-sm font-medium text-gray-500 mt-1">
+                        Ranked candidate profiles based on job requirements
                     </p>
                 </div>
                 <button
                     onClick={() => window.open("https://ai-recruitment-system-sano.onrender.com/export-csv")}
-                    className="flex items-center gap-2 border border-gray-200 bg-white hover:bg-gray-50 hover:shadow-sm hover:-translate-y-0.5 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 transition-all duration-200"
+                    className="relative z-10 flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                 >
-                    <Download className="w-4 h-4 mb-[1px]" /> Export CSV
+                    <Download className="w-4 h-4 text-gray-300" /> Export CSV
                 </button>
             </div>
 
-            <div className="overflow-x-auto w-full max-w-full">
-                <table className="w-full text-left border-collapse min-w-[600px]">
-                    <thead>
-                        <tr className="bg-[#f8fafc] border-b border-[#e2e8f0]">
-                            <th className="px-6 py-3 text-xs font-semibold text-[#64748b] uppercase w-16 text-center">Rank</th>
-                            <th className="px-6 py-3 text-xs font-semibold text-[#64748b] uppercase">Candidate</th>
-                            <th className="px-6 py-3 text-xs font-semibold text-[#64748b] uppercase w-48 sm:w-64">Match Score</th>
-                            <th className="hidden md:table-cell px-6 py-3 text-xs font-semibold text-[#64748b] uppercase">Experience</th>
-                            <th className="hidden md:table-cell px-6 py-3 text-xs font-semibold text-[#64748b] uppercase">Skills</th>
-                            <th className="hidden sm:table-cell px-6 py-3 text-xs font-semibold text-[#64748b] uppercase">
-                                Skill Match
-                            </th>
-                            <th className="px-6 py-3 text-xs font-semibold text-[#64748b] uppercase text-right">Actions</th>
+            {/* Table */}
+            <div className="overflow-x-auto w-full">
+                <table className="w-full text-left border-collapse min-w-[700px]">
+                    <thead className="bg-[#f8fafc]/80 backdrop-blur-sm border-b border-gray-100">
+                        <tr>
+                            <th className="px-7 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-center w-20">Rank</th>
+                            <th className="px-7 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Candidate</th>
+                            <th className="px-7 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider w-56">Overall Match</th>
+                            <th className="hidden md:table-cell px-7 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Experience</th>
+                            <th className="hidden md:table-cell px-7 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Top Skills</th>
+                            <th className="px-7 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Actions</th>
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-[#e2e8f0]">
+                    <tbody className="divide-y divide-gray-50">
                         {Array.isArray(data) && data.length > 0 ? (
                             data.map((candidate, index) => (
-                                <tr key={index} className="hover:bg-blue-50/30 transition-colors duration-200 group">
-                                    <td className="px-6 py-4 text-center">
-                                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm bg-gray-50 text-gray-500 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">
-                                            #{index + 1}
+                                <tr key={index} className="hover:bg-indigo-50/40 transition-colors duration-300 group">
+                                    <td className="px-7 py-5 text-center">
+                                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${index === 0 ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-500 group-hover:bg-indigo-50 group-hover:text-indigo-600'} transition-colors`}>
+                                            {index + 1}
                                         </span>
                                     </td>
 
-                                    <td className="px-6 py-4">
-                                        <div className="font-semibold text-gray-900">
+                                    <td className="px-7 py-5">
+                                        <div className="font-bold text-gray-900 group-hover:text-indigo-900 transition-colors">
                                             {candidate.name}
                                         </div>
                                     </td>
 
-                                    <td className="px-6 py-4">
+                                    <td className="px-7 py-5">
                                         <div className="flex items-center gap-3">
-                                            <span className={`px-2 py-1 rounded-md text-xs font-bold shadow-sm ${getBadgeColor(candidate.score)}`}>
+                                            <span className={`px-2.5 py-1 rounded-md text-xs font-extrabold ${getBadgeColor(candidate.score)} border border-transparent`}>
                                                 {candidate.score}%
                                             </span>
 
-                                            <div className="w-full bg-gray-100 rounded-full h-2 max-w-[120px] overflow-hidden">
+                                            <div className="w-full bg-gray-100 rounded-full h-2.5 max-w-[130px] overflow-hidden shadow-inner">
                                                 <div
-                                                    className={`h-full rounded-full ${getScoreColor(candidate.score)} transition-all duration-700 ease-out`}
+                                                    className={`h-full rounded-full ${getScoreColor(candidate.score)} transition-all duration-1000 ease-out`}
                                                     style={{ width: `${candidate.score}%` }}
                                                 ></div>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td className="hidden md:table-cell px-6 py-4 text-sm text-gray-700 font-medium">
+                                    <td className="hidden md:table-cell px-7 py-5 text-sm text-gray-600 font-medium">
                                         {candidate.experience}
                                     </td>
 
-                                    <td className="hidden md:table-cell px-6 py-4 text-sm">
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {candidate.skills ? candidate.skills.slice(0, 3).map((skill, i) => (
-                                                <span key={i} className="bg-blue-50 text-blue-600 px-2 py-1 rounded-md text-xs font-medium border border-blue-100/50">
-                                                    {skill}
-                                                </span>
-                                            )) : <span className="text-gray-400">No skills</span>}
-                                            {candidate.skills && candidate.skills.length > 3 && (
-                                                <span className="bg-gray-50 text-gray-500 px-2 py-1 rounded-md text-xs font-medium border border-gray-100">
-                                                    +{candidate.skills.length - 3}
-                                                </span>
+                                    <td className="hidden md:table-cell px-7 py-5">
+                                        <div className="flex flex-wrap gap-2">
+                                            {candidate.skills && candidate.skills.length > 0 ? (
+                                                candidate.skills.slice(0, 3).map((skill, i) => (
+                                                    <span key={i} className="bg-white text-gray-600 px-2.5 py-1 rounded-md text-xs font-semibold border border-gray-200 shadow-sm group-hover:border-indigo-100 transition-colors">
+                                                        {skill}
+                                                    </span>
+                                                ))
+                                            ) : (
+                                                <span className="text-gray-400 text-sm font-medium italic">No skills listed</span>
                                             )}
                                         </div>
                                     </td>
 
-                                    <td className="hidden sm:table-cell px-6 py-4 text-sm font-bold text-blue-600">
-                                        {candidate.skill_match}%
-                                    </td>
-
-                                    <td className="px-6 py-4 text-right">
-                                        <div className="flex justify-end gap-2">
+                                    <td className="px-7 py-5 text-right">
+                                        <div className="flex justify-end gap-1">
                                             <button
                                                 onClick={() => setSelectedCandidate(candidate)}
-                                                className="text-[#3b82f6] hover:text-[#1d4ed8] p-2 rounded-lg"
+                                                className="text-indigo-600 bg-indigo-50 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2"
                                             >
                                                 <ExternalLink className="w-4 h-4" />
-                                            </button>
-                                            <button className="text-[#94a3b8] hover:text-[#1e293b] p-2 rounded-lg">
-                                                <MoreVertical className="w-4 h-4" />
+                                                View
                                             </button>
                                         </div>
                                     </td>
@@ -124,22 +116,30 @@ function RankingTable({ data = [] }) {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="5" className="text-center py-8 text-gray-500">
-                                    No ranking data available. Please upload job description and resumes.
+                                <td colSpan="6" className="text-center py-16">
+                                    <div className="flex flex-col items-center justify-center text-gray-400">
+                                        <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-3">
+                                            <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                            </svg>
+                                        </div>
+                                        <p className="font-medium text-gray-500">No candidates available</p>
+                                        <p className="text-sm mt-1">Upload resumes to see AI rankings here.</p>
+                                    </div>
                                 </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
             </div>
-            {
-                selectedCandidate && (
-                    <ResumeModal
-                        candidate={selectedCandidate}
-                        onClose={() => setSelectedCandidate(null)}
-                    />
-                )
-            }
+            
+            {/* Resume Modal */}
+            {selectedCandidate && (
+                <ResumeModal
+                    candidate={selectedCandidate}
+                    onClose={() => setSelectedCandidate(null)}
+                />
+            )}
         </div>
     );
 }

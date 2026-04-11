@@ -270,7 +270,6 @@ def rank_resumes():
         reverse=True
     )
 
-    rankings_collection.delete_many({})
     rankings_collection.insert_one({
         "timestamp": datetime.utcnow(),
         "job_description": job_description_text,
