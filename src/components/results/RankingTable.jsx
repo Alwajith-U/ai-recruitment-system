@@ -23,16 +23,16 @@ function RankingTable({ data = [] }) {
     return (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] overflow-hidden">
             {/* Header */}
-            <div className="px-7 py-6 border-b border-gray-100 flex items-center justify-between bg-white relative overflow-hidden">
-                <div className="relative z-10">
-                    <h2 className="text-xl font-bold text-gray-900 tracking-tight">AI Match Results</h2>
-                    <p className="text-sm font-medium text-gray-500 mt-1">
+            <div className="px-5 sm:px-7 py-4 sm:py-6 border-b border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white relative overflow-hidden">
+                <div className="relative z-10 w-full sm:w-auto">
+                    <h2 className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">AI Match Results</h2>
+                    <p className="text-xs sm:text-sm font-medium text-gray-500 mt-1">
                         Ranked candidate profiles based on job requirements
                     </p>
                 </div>
                 <button
                     onClick={() => window.open("https://ai-recruitment-system-sano.onrender.com/export-csv")}
-                    className="relative z-10 flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                    className="relative z-10 w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                 >
                     <Download className="w-4 h-4 text-gray-300" /> Export CSV
                 </button>

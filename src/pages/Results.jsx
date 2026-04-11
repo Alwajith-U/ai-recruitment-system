@@ -42,18 +42,18 @@ function Results() {
         <div className="space-y-8 pb-12 w-full">
 
             {/* Header */}
-            <div className="flex items-center gap-5 pb-2 border-b border-gray-100">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 pb-4 sm:pb-2 border-b border-gray-100">
                 <button
                     onClick={() => navigate('/upload')}
-                    className="p-2.5 bg-white border border-gray-200 rounded-xl text-gray-500 hover:text-gray-900 hover:border-gray-300 hover:shadow-sm transition-all duration-200 group"
+                    className="p-2.5 bg-white border border-gray-200 rounded-xl text-gray-500 hover:text-gray-900 hover:border-gray-300 hover:shadow-sm transition-all duration-200 group self-start sm:self-auto"
                 >
                     <ArrowLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
                 </button>
 
                 <div>
-                    <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 tracking-tight">AI Evaluation Results</h1>
-                    <p className="text-sm font-medium text-gray-500 mt-1 flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-indigo-500" />
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 tracking-tight">AI Evaluation Results</h1>
+                    <p className="text-xs sm:text-sm font-medium text-gray-500 mt-1 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-indigo-500 shrink-0" />
                         Analyzed {rankingData.length} resumes against job profile
                     </p>
                 </div>
@@ -65,36 +65,36 @@ function Results() {
                     {/* Glow backdrop */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 rounded-[1.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                     
-                    <div className="relative bg-white border border-gray-100 p-6 md:p-8 rounded-[1.4rem] shadow-xl shadow-indigo-100/20 overflow-hidden">
+                    <div className="relative bg-white border border-gray-100 p-5 sm:p-6 md:p-8 rounded-[1.4rem] shadow-xl shadow-indigo-100/20 overflow-hidden">
                         
                         {/* Decorative Background shapes */}
-                        <div className="absolute right-0 top-0 -mt-20 -mr-20 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50 z-0"></div>
-                        <div className="absolute left-1/4 bottom-0 -mb-10 w-40 h-40 bg-fuchsia-50 rounded-full blur-2xl opacity-60 z-0"></div>
+                        <div className="absolute right-0 top-0 -mt-20 -mr-20 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50 z-0 hidden sm:block"></div>
+                        <div className="absolute left-1/4 bottom-0 -mb-10 w-40 h-40 bg-fuchsia-50 rounded-full blur-2xl opacity-60 z-0 hidden sm:block"></div>
 
-                        <div className="relative z-10 flex flex-col lg:flex-row lg:items-start gap-8">
+                        <div className="relative z-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
                             {/* Left header area */}
                             <div className="flex-1">
-                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100/50 mb-5">
+                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100/50 mb-4 sm:mb-5">
                                     <Star className="w-4 h-4 text-indigo-500 fill-indigo-500" />
-                                    <span className="text-xs font-bold text-indigo-700 uppercase tracking-widest">Top Recommendation</span>
+                                    <span className="text-[10px] sm:text-xs font-bold text-indigo-700 uppercase tracking-widest">Top Recommendation</span>
                                 </div>
                                 
-                                <h2 className="text-4xl font-black text-gray-900 tracking-tight leading-none mb-2">
+                                <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight leading-none mb-2 break-words">
                                     {topCandidate.name}
                                 </h2>
-                                <p className="text-gray-500 font-medium flex items-center gap-1.5">
-                                    <Briefcase className="w-4 h-4" /> 
+                                <p className="text-sm sm:text-base text-gray-500 font-medium flex items-center gap-1.5">
+                                    <Briefcase className="w-4 h-4 shrink-0" /> 
                                     {topCandidate.experience} Professional
                                 </p>
                             </div>
 
                             {/* Score Display */}
-                            <div className="flex-shrink-0 flex items-center justify-center p-6 bg-gradient-to-b from-indigo-50 to-white rounded-2xl border border-indigo-100/60 shadow-inner">
+                            <div className="flex-shrink-0 flex items-center justify-center p-5 sm:p-6 bg-gradient-to-b from-indigo-50 to-white rounded-2xl border border-indigo-100/60 shadow-inner w-full md:w-auto">
                                 <div className="text-center">
-                                    <div className="text-5xl font-black text-indigo-600 mb-1 leading-none tracking-tighter">
+                                    <div className="text-4xl sm:text-5xl font-black text-indigo-600 mb-1 leading-none tracking-tighter">
                                         {topCandidate.score}%
                                     </div>
-                                    <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">Match Score</span>
+                                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-400">Match Score</span>
                                 </div>
                             </div>
                         </div>
