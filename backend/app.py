@@ -41,6 +41,7 @@ client = MongoClient(mongo_uri, tls=True, tlsAllowInvalidCertificates=True)
 
 db = client["ai_recruitment"]
 rankings_collection = db["rankings"]
+resumes_collection = db["resumes"]
 
 
 # -----------------------------
@@ -172,13 +173,21 @@ def upload_resumes():
 
     files = request.files.getlist("resumes")
 
+    from io import BytesIO
+    import base64
+
     for file in files:
 
-        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file_content = file.read()
+        encoded_pdf = base64.b64encode(file_content).decode('utf-8')
+        
+        resumes_collection.update_one(
+            {"filename": file.filename},
+            {"$set": {"filename": file.filename, "content_base64": encoded_pdf}},
+            upsert=True
+        )
 
-        file.save(filepath)
-
-        with pdfplumber.open(filepath) as pdf:
+        with pdfplumber.open(BytesIO(file_content)) as pdf:
 
             text = ""
 
@@ -194,7 +203,6 @@ def upload_resumes():
         resumes.append({
             "filename": file.filename,
             "name": name,
-            "filepath": filepath,
             "content": text,
             "experience": experience,
             "skills": skills
@@ -285,12 +293,14 @@ def rank_resumes():
 @app.route("/resume/<filename>")
 def serve_resume(filename):
 
-    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    import base64
+    resume_doc = resumes_collection.find_one({"filename": filename})
 
-    if not os.path.exists(filepath):
+    if not resume_doc:
         return jsonify({"error": "Resume not found"}), 404
 
-    return send_from_directory(UPLOAD_FOLDER, filename)
+    pdf_data = base64.b64decode(resume_doc["content_base64"])
+    return Response(pdf_data, mimetype="application/pdf")
 
 # -----------------------------
 # Export CSV

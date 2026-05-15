@@ -18,7 +18,7 @@ function Dashboard() {
 
     useEffect(() => {
 
-        fetch("https://ai-recruitment-system-sano.onrender.com/dashboard")
+        fetch("http://localhost:10000/dashboard")
             .then(res => res.json())
             .then(data => setStatsData(data))
             .catch(err => console.error("Dashboard error:", err));

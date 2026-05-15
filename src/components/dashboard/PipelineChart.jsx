@@ -10,7 +10,7 @@ function PipelineChart() {
     });
 
     useEffect(() => {
-        fetch("https://ai-recruitment-system-sano.onrender.com/pipeline")
+        fetch("http://localhost:10000/pipeline")
             .then(res => res.json())
             .then(data => setPipeline(data))
             .catch(err => console.error("Pipeline error:", err));

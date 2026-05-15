@@ -9,7 +9,7 @@ function History() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch("https://ai-recruitment-system-sano.onrender.com/history")
+        fetch("http://localhost:10000/history")
             .then(res => res.json())
             .then(data => {
                 setHistory(data);

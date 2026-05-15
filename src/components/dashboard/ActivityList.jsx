@@ -7,7 +7,7 @@ function ActivityList() {
 
     useEffect(() => {
 
-        fetch("https://ai-recruitment-system-sano.onrender.com/activity")
+        fetch("http://localhost:10000/activity")
             .then(res => res.json())
             .then(data => setActivities(data))
             .catch(err => console.error("Activity error:", err));
