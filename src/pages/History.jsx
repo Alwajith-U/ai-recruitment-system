@@ -9,7 +9,7 @@ function History() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch("http://localhost:10000/history")
+        fetch("https://ai-recruitment-system-sano.onrender.com/history")
             .then(res => res.json())
             .then(data => {
                 setHistory(data);
@@ -54,7 +54,7 @@ function History() {
                     <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Recruitment History</h1>
                     <p className="text-gray-500 mt-1">Review past evaluations and top candidates.</p>
                 </div>
-                
+
                 {/* Controls */}
                 <div className="flex flex-col sm:flex-row gap-3">
                     {/* Search */}
@@ -70,7 +70,7 @@ function History() {
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
-                    
+
                     {/* Filter / Sort Dropdown */}
                     <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -121,8 +121,8 @@ function History() {
             {!isLoading && filteredHistory.length > 0 && (
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                     {filteredHistory.map((item, index) => (
-                        <div 
-                            key={index} 
+                        <div
+                            key={index}
                             className="group bg-white rounded-xl p-5 border border-gray-100 shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.1)] hover:border-gray-200 transition-all duration-300 flex flex-col"
                         >
                             {/* Card Header */}

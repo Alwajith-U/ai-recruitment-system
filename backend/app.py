@@ -290,8 +290,10 @@ def rank_resumes():
 # -----------------------------
 # Resume Preview
 # -----------------------------
-@app.route("/resume/<filename>")
+@app.route("/resume/<path:filename>")
 def serve_resume(filename):
+    import urllib.parse
+    filename = urllib.parse.unquote(filename)
 
     import base64
     resume_doc = resumes_collection.find_one({"filename": filename})

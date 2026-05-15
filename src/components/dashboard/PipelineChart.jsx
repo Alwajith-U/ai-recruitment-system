@@ -10,7 +10,7 @@ function PipelineChart() {
     });
 
     useEffect(() => {
-        fetch("http://localhost:10000/pipeline")
+        fetch("https://ai-recruitment-system-sano.onrender.com/pipeline")
             .then(res => res.json())
             .then(data => setPipeline(data))
             .catch(err => console.error("Pipeline error:", err));
@@ -97,15 +97,15 @@ function PipelineChart() {
 
                                     {/* Progress Bar Container */}
                                     <div className="h-3 w-full bg-gray-50 rounded-full overflow-hidden border border-gray-100/50 shadow-inner">
-                                        <div 
+                                        <div
                                             className={`h-full rounded-full ${stage.fillColor} transition-all duration-1000 ease-out`}
                                             style={{ width: `${percentage}%` }}
                                         ></div>
                                     </div>
-                                    
+
                                     {/* Subtext info */}
                                     <div className="mt-1.5 flex text-[11px] font-medium text-gray-400 uppercase tracking-widest gap-2">
-                                        {i === 0 ? "Initial Pool" : `Conversion: ${stage.count > 0 ? Math.round((stage.count / stages[i-1].count) * 100) : 0}%`}
+                                        {i === 0 ? "Initial Pool" : `Conversion: ${stage.count > 0 ? Math.round((stage.count / stages[i - 1].count) * 100) : 0}%`}
                                     </div>
                                 </div>
                             </div>

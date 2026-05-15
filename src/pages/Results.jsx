@@ -11,7 +11,7 @@ function Results() {
     useEffect(() => {
         const fetchRanking = async () => {
             try {
-                const response = await fetch("http://localhost:10000/rank");
+                const response = await fetch("https://ai-recruitment-system-sano.onrender.com/rank");
                 const data = await response.json();
                 setRankingData(data);
                 setLoading(false);
@@ -64,9 +64,9 @@ function Results() {
                 <div className="relative group">
                     {/* Glow backdrop */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 rounded-[1.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                    
+
                     <div className="relative bg-white border border-gray-100 p-5 sm:p-6 md:p-8 rounded-[1.4rem] shadow-xl shadow-indigo-100/20 overflow-hidden">
-                        
+
                         {/* Decorative Background shapes */}
                         <div className="absolute right-0 top-0 -mt-20 -mr-20 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50 z-0 hidden sm:block"></div>
                         <div className="absolute left-1/4 bottom-0 -mb-10 w-40 h-40 bg-fuchsia-50 rounded-full blur-2xl opacity-60 z-0 hidden sm:block"></div>
@@ -78,12 +78,12 @@ function Results() {
                                     <Star className="w-4 h-4 text-indigo-500 fill-indigo-500" />
                                     <span className="text-[10px] sm:text-xs font-bold text-indigo-700 uppercase tracking-widest">Top Recommendation</span>
                                 </div>
-                                
+
                                 <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight leading-none mb-2 break-words">
                                     {topCandidate.name}
                                 </h2>
                                 <p className="text-sm sm:text-base text-gray-500 font-medium flex items-center gap-1.5">
-                                    <Briefcase className="w-4 h-4 shrink-0" /> 
+                                    <Briefcase className="w-4 h-4 shrink-0" />
                                     {topCandidate.experience} Professional
                                 </p>
                             </div>
@@ -102,13 +102,13 @@ function Results() {
                         {/* Skills Grid */}
                         <div className="relative z-10 mt-8 pt-6 border-t border-gray-100/80">
                             <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <GraduationCap className="w-4 h-4 text-gray-400" /> 
+                                <GraduationCap className="w-4 h-4 text-gray-400" />
                                 Matching Skills Profile
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {topCandidate.skills.map((skill, idx) => (
-                                    <span 
-                                        key={idx} 
+                                    <span
+                                        key={idx}
                                         className="px-3.5 py-1.5 bg-gray-50 text-gray-700 rounded-lg text-sm font-semibold border border-gray-200/60 shadow-sm hover:border-gray-300 transition-colors"
                                     >
                                         {skill}
